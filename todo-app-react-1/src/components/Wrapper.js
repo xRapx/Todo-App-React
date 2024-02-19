@@ -41,9 +41,14 @@ function Wrapper() {
 	// Edit Todo Click id
 	const editTodo = (id) =>{
 		setTodos(
-			todos.map((todo) =>
-			  todo.id === id ? { ...todo, isEdit: !todo.isEdit } : todo
-			)
+			(todos.map(todo =>{
+				if(todo.id === id){
+					return {
+						...todo, isEdit:!todo.isEdit
+					}
+				}
+				return todo
+			}))
 		  );
     }
     // Edit Task
