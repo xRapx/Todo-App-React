@@ -1,0 +1,33 @@
+.warpper-list{
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	background: #8758ff;
+	color: #fff;
+	padding: 0.75rem 1rem;
+	border-radius: 5px;
+	margin-bottom: 1rem;
+}
+.btn-submit{
+	background: #8758ff;
+	color: #fff;
+	border: none;
+	padding: 0.55rem;
+	cursor: pointer;
+}
+.border-left{
+	border-left: 1px solid;
+}
+
+/* check completed */
+.incompleted {
+	padding: 10px 10px;
+	color: #fff;
+	cursor: pointer;
+}
+.completed {
+	padding: 10px 10px;
+	color: #c5aeff;
+	text-decoration: line-through;
+	cursor: pointer;
+  }
