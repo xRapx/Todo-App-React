@@ -1,14 +1,14 @@
 import {useState, useRef} from 'react'
 import "./style/todoForm.css"
 
-function TodoForm({addTodo}) {
+function TodoForm({addTodo,task}) {
 	const [todo, setTodo] = useState("")
 
 	const inputRef= useRef()
 
 	const handleSubmit = (e) =>{
 		e.preventDefault()
-		addTodo(todo);
+		addTodo(todo,task);
 		setTodo('')
 		inputRef.current.focus()
 	}	

@@ -1,6 +1,6 @@
 /* eslint-disable array-callback-return */
 /* eslint-disable no-unused-vars */
-import React, { useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import './style/Wrapper.css'
 import Todo from './todo';
 import TodoForm from './todoForm';
@@ -10,57 +10,91 @@ uuidv4();
 
 function Wrapper() {
 	const[todos, setTodos] = useState([])
+	
+	// useEffect
+	useEffect(() =>{
+		const saveTodos = JSON.parse(localStorage.getItem('todos')) || [] 
+
+		setTodos(saveTodos)
+	},[])
 
 	// Add new todo
 	const addTodo = (todo) =>{	
-		setTodos([...todos, {
+
+		const newTodos = [...todos, {
 			id: uuidv4(),
 			task: todo,
 			complete:false,
 			isEdit: false
-		}])
+		}]
+
+		setTodos(newTodos)
+
 		// Check user sử dụng dấu cách sẻ loại bỏ
 		if(!todo.task || /^\s*$/.test(todo.task)){
 			return
 		}
+
+		// add localStorage
+		localStorage.setItem('todos', JSON.stringify(newTodos))
+
 	}	
 	// Check Todo well done
 	const toggleComplete = (id) =>{
-		setTodos( todos.map((todo) => {
+
+		const newTodos = todos.map((todo) => {
 			if(todo.id === id){
                 todo.complete =!todo.complete
             }
             return todo
-		}))
+		})
+
+		setTodos( newTodos)
+
+		// add localStorage
+		localStorage.setItem('todos', JSON.stringify(newTodos))
 	}
 	// delete Todo
 	const deleteItem = (id) =>{
-		setTodos( todos.filter(todo => todo.id !== id))
+		const newTodos = todos.filter(todo => todo.id !== id)
+
+		setTodos( newTodos)
+
+		// add localStorage
+		localStorage.setItem('todos', JSON.stringify(newTodos))
 	}
 
 	// Edit Todo Click id
 	const editTodo = (id) =>{
-		setTodos(
-			(todos.map(todo =>{
-				if(todo.id === id){
-					return {
-						...todo, isEdit:!todo.isEdit
-					}
+		const newTodos = todos.map(todo =>{
+			if(todo.id === id){
+				return {
+					...todo, isEdit:!todo.isEdit
 				}
-				return todo
-			}))
-		  );
+			}
+			return todo
+		})
+
+		setTodos(newTodos);
+
+		// add localStorage
+		localStorage.setItem('todos', JSON.stringify(newTodos))
     }
     // Edit Task
 	const editTask = (task,id) =>{
-		setTodos(todos.map((todo) => {
+		const newTodos = todos.map((todo) => {
 			if(todo.id === id) {
 				return{
                     ...todo, task, isEdit:!todo.isEdit
                 }
 			}
 			return todo
-		}))
+		})
+
+		setTodos(newTodos)
+
+		// add Local Stogage
+		localStorage.setItem('todos', JSON.stringify(newTodos))
 	}
 
 	return ( 
