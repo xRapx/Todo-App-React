@@ -4,18 +4,39 @@
   padding: 0;
   box-sizing: border-box;
 }
+:root{
+  ---color-theme : #8758ff;
+}
 
 body {
-  background: #8758ff;
+  background: #ffc100;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 .app {
+  position: relative;
   text-align: center;
 }
 h1 {
   margin-bottom: 0.5rem;
   font-size: 1.75rem;
   color: white;
+}
+.btn-color{
+  border-radius: 5px;
+  padding: 0.5rem 1rem;
+  margin-top: 1rem;
+  background-color: #1A1A40;
+  color: #fff;
+  margin-left: 1rem;
+}
+.switch{
+  margin-top: 1rem;
+}
+.span-text{
+  position: absolute;
+    left: 60px;
+    top: 22px;
+    color: floralwhite;
 }

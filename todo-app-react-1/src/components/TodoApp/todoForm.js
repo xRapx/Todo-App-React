@@ -1,5 +1,5 @@
 import {useState, useRef} from 'react'
-import "./style/todoForm.css"
+import "../style/todoForm.css"
 
 function TodoForm({addTodo,task}) {
 	const [todo, setTodo] = useState("")
@@ -8,7 +8,14 @@ function TodoForm({addTodo,task}) {
 
 	const handleSubmit = (e) =>{
 		e.preventDefault()
-		addTodo(todo,task);
+		if(todo === '') {
+			alert('Không để trống')
+			inputRef.current.focus()
+			return
+		}else{
+			addTodo(todo,task);
+			
+		}		
 		setTodo('')
 		inputRef.current.focus()
 	}	
@@ -17,7 +24,7 @@ function TodoForm({addTodo,task}) {
 		<div>
 
 			<form action="" onSubmit={handleSubmit} className='todo-form'>
-				<input type="text" ref={inputRef} className='todo-input' value={todo} placeholder='Enter Todo Here....' onChange={(e) =>setTodo(e.target.value)}/>
+				<input type="text" ref={inputRef} className='todo-input' value={todo} placeholder='Enter Todo Here....' onChange={(e) =>setTodo(e.target.value)} />
 				<button type="submit" className="btn-submit">ADD</button>
 			</form>
 		</div>

@@ -1,11 +1,14 @@
 /* eslint-disable array-callback-return */
 /* eslint-disable no-unused-vars */
-import React, { useCallback, useEffect, useState } from 'react';
-import './style/Wrapper.css'
-import Todo from './todo';
-import TodoForm from './todoForm';
+import React, { useEffect, useState } from 'react';
+
+import Todo from '../TodoApp/todo';
+import TodoForm from '../TodoApp/todoForm';
+import EditTodoForm from '../TodoApp/EditForm';
+
+import '../style/Wrapper.css'
 import {v4 as uuidv4} from "uuid"
-import EditTodoForm from './EditForm';
+
 uuidv4();
 
 function Wrapper() {
@@ -18,9 +21,13 @@ function Wrapper() {
 		setTodos(saveTodos)
 	},[])
 
+	// Func LocalStorage
+	const callLocalStorage = (data) =>{
+		localStorage.setItem('todos', JSON.stringify(data))
+	}
+
 	// Add new todo
 	const addTodo = (todo) =>{	
-
 		const newTodos = [...todos, {
 			id: uuidv4(),
 			task: todo,
@@ -36,8 +43,7 @@ function Wrapper() {
 		}
 
 		// add localStorage
-		localStorage.setItem('todos', JSON.stringify(newTodos))
-
+		callLocalStorage(newTodos)
 	}	
 	// Check Todo well done
 	const toggleComplete = (id) =>{
@@ -52,7 +58,7 @@ function Wrapper() {
 		setTodos( newTodos)
 
 		// add localStorage
-		localStorage.setItem('todos', JSON.stringify(newTodos))
+		callLocalStorage(newTodos)
 	}
 	// delete Todo
 	const deleteItem = (id) =>{
@@ -61,7 +67,7 @@ function Wrapper() {
 		setTodos( newTodos)
 
 		// add localStorage
-		localStorage.setItem('todos', JSON.stringify(newTodos))
+		callLocalStorage(newTodos)
 	}
 
 	// Edit Todo Click id
@@ -78,10 +84,14 @@ function Wrapper() {
 		setTodos(newTodos);
 
 		// add localStorage
-		localStorage.setItem('todos', JSON.stringify(newTodos))
+		callLocalStorage(newTodos)
     }
     // Edit Task
 	const editTask = (task,id) =>{
+		// method map() để check id có trùng với id đã onClick , 
+		// nếu không trùng thì return về todo và không làm gì cả
+		// nếu trùng thì method map() sẻ trả ra 1 mảng object mới và có thể sửa lại phần tử complete thành phủ định
+
 		const newTodos = todos.map((todo) => {
 			if(todo.id === id) {
 				return{
@@ -93,8 +103,8 @@ function Wrapper() {
 
 		setTodos(newTodos)
 
-		// add Local Stogage
-		localStorage.setItem('todos', JSON.stringify(newTodos))
+		// add Local Storage
+		callLocalStorage(newTodos)
 	}
 
 	return ( 

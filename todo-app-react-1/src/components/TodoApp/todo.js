@@ -1,5 +1,5 @@
 import React from "react";
-import "./style/todo.css"
+import "../style/todo.css"
 
 function Todo({task,toggleComplete,deleteItem,editTodo}) {
 
